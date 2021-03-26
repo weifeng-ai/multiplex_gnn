@@ -1,6 +1,6 @@
 # multiplex_gnn
 
-This repository is the implementation of ([Multiplex Graph Neural Networks for Multi-behavior Recommendation](https://dl.acm.org/doi/abs/10.1145/3340531.3412119)). 
+This repository is the implementation of ([Multiplex Graph Neural Networks (MGNN) for Multi-behavior Recommendation](https://dl.acm.org/doi/abs/10.1145/3340531.3412119)). 
 
 MGNN tackles the multi-behavior recommendation problem from a novel perspective, i.e., the perspective of link prediction in multiplex networks. By taking advantage of both the multiplex network structure and graph representation learning techniques, MGNN learns shared embeddings and behavior-specific embeddings for users and items to model the collective effect of multiple types of behaviors.
 
