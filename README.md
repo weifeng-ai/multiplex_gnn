@@ -20,7 +20,7 @@ This repository is the implementation of ([Multiplex Graph Neural Networks for M
 
 Run the corresponding preprocessing code in the 'preprocess.py' file.
 
-### Run the codes
+### Run the code
   ```
   $ cd src
   $ python run.py --dataset steam (or yoochoose, or db_book)
