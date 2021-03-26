@@ -11,29 +11,29 @@ def preprocess_db_book():
     DATASET = 'db_book/'
     behavior_map = {'uwish':0, 'ureading':1, 'uread':2, 'utag':3, 'ucomment':4, 'urating':5}
     data = []
-    print('loading douban book dataset ...')
+    print('preprocessing douban book dataset ...')
     sys.stdout.flush()
 
     n_interaction = 0
-    user_dict = {}
-    item_dict = {}
+    user_set = set()
+    item_set = set()
     for filename, behavior_type in behavior_map.items():
         with open(DATA_DIR + DATASET + filename + '.txt') as fin:
             for line in fin:
                 u, i = map(int, line.strip().split('\t'))
                 data.append([u, i, behavior_type])
                 n_interaction += 1
-                if u not in user_dict:
-                    user_dict.add(u)
-                if i not in item_dict:
-                    item_dict.add(i)
+                if u not in user_set:
+                    user_set.add(u)
+                if i not in item_set:
+                    item_set.add(i)
     df_data = pd.DataFrame(np.array(data, dtype=int), columns=['user_id', 'item_id', 'behavior'])
     df_data.sort_values(['user_id', 'behavior'],inplace=True)
 
     print('dumping data ...')
     df_data.to_csv(DATA_DIR + DATASET + 'user_item_behavior.csv', header=False, index=False)
     np.savetxt(DATA_DIR + DATASET + 'behavior_map.csv', np.array(list(behavior_map.items())), fmt='%s', delimiter=',')
-    print(n_interaction, "interactions about", len(user_dict), "users,", len(item_dict), "items.")
+    print(n_interaction, "interactions about", max(user_set)+1, "users,", max(item_set)+1, "items.")
     print('done!')
 
 def preprocess_steam():
@@ -41,10 +41,10 @@ def preprocess_steam():
     behavior_map = {'purchase':0, 'play':1, 'review':2, 'recommend':3}
     user_candidate = set()
 
-    print('loading steam review dataset ...')
+    print('preprocessing steam review dataset ...')
     sys.stdout.flush()
 
-    with open(DATA_DIR+DATASET+'australian_user_reviews.json') as fin:
+    with open(DATA_DIR+DATASET+'australian_user_reviews.json', encoding='UTF-8') as fin:
         for line in fin:
             parsed_line = ast.literal_eval(line)
             user_id = parsed_line['user_id']
@@ -55,7 +55,7 @@ def preprocess_steam():
                         break
 
     data = defaultdict(lambda: defaultdict(set))
-    with open(DATA_DIR+DATASET+'australian_user_reviews.json') as fin:
+    with open(DATA_DIR+DATASET+'australian_user_reviews.json', encoding='UTF-8') as fin:
         for line in fin:
             parsed_line = ast.literal_eval(line)
             user_id = parsed_line['user_id']
@@ -66,10 +66,10 @@ def preprocess_steam():
                     if review['recommend']:
                          data[user_id][item_id].add(behavior_map['recommend'])
     
-    print('loading steam_purchase dataset ...')
+    print('preprocessing steam_purchase dataset ...')
     sys.stdout.flush()
 
-    with open(DATA_DIR+DATASET+'australian_users_items.json') as fin:
+    with open(DATA_DIR+DATASET+'australian_users_items.json', encoding='UTF-8') as fin:
         for line in fin:
             parsed_line = ast.literal_eval(line)
             user_id = parsed_line['user_id']
@@ -115,7 +115,7 @@ def preprocess_yoochoose():
     data = defaultdict(lambda: defaultdict(set))
     behavior_map = {'click':0, 'purchase':1}
 
-    print('loading yoochoose dataset ...')
+    print('preprocessing yoochoose-buys ...')
     sys.stdout.flush()
 
     with open(DATA_DIR+DATASET+'yoochoose-buys.dat') as fin:
@@ -125,6 +125,8 @@ def preprocess_yoochoose():
             item_id = int(data_line[2])
             data[user_id][item_id].add(behavior_map['purchase'])
 
+    print('preprocessing yoochoose-clicks ...')
+    sys.stdout.flush()
     with open(DATA_DIR+DATASET+"yoochoose-clicks.dat") as fin:
         for line in fin:
             data_line = line.strip().split(",")
@@ -167,4 +169,4 @@ def preprocess_yoochoose():
 
 
 if __name__ == '__main__':
-    preprocess_yoochoose()
+    preprocess_steam()
