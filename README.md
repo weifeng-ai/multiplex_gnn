@@ -14,7 +14,7 @@ MGNN tackles the multi-behavior recommendation problem from a novel perspective,
 
 The preprocessed datasets but not the original datasets have been stored in the directory `/data/`. You can also download the original datasets and run the preprocess code.
 
-### Download datasets
+### Download and preprocess datasets
 
 - Yoochoose
 
