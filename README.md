@@ -7,12 +7,15 @@ This repository is the implementation of ([Multiplex Graph Neural Networks for M
 ### Download datasets
 
 - Yoochoose
+
 [Download](https://www.kaggle.com/chadgostopp/recsys-challenge-2015) the dataset into the directory `/data/yoochoose/`.
 
 - Steam
+
 [Download](https://cseweb.ucsd.edu/%7Ejmcauley/datasets.html#steam_data) and unzip the Version 1 of the dataset into the directory `/data/steam/`.
 
 - DB-book
+
 [Download](https://github.com/7thsword/MFPR-Datasets/) the dataset into the directory `/data/db_book/`.
 
 Run the corresponding preprocessing code in the 'preprocess.py' file.
@@ -21,5 +24,4 @@ Run the corresponding preprocessing code in the 'preprocess.py' file.
   ```
   $ cd src
   $ python run.py --dataset steam (or yoochoose, or db_book)
-  $ python main.py
   ```
