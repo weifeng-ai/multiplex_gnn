@@ -12,7 +12,7 @@ MGNN tackles the multi-behavior recommendation problem from a novel perspective,
   $ python run.py --dataset steam (or yoochoose, or db_book)
   ```
 
-The preprocessed datasets but not the original datasets are store in the directory `/data/`. You can also download the original datasets and run the preprocess code.
+The preprocessed datasets but not the original datasets have been stored in the directory `/data/`. You can also download the original datasets and run the preprocess code.
 
 ### Download datasets
 
